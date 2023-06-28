@@ -1,5 +1,5 @@
-
 import Card from "react-bootstrap/Card";
+import {EmployeesList} from "../Employees/EmployeesList";
 
 export const EmployeesView = () => (
     <>
@@ -9,7 +9,7 @@ export const EmployeesView = () => (
         >
             <Card>
                 <Card.Header><h2>Lista Pracowników</h2></Card.Header>
-                {/*<EmployeesList/>*/}
+                <EmployeesList/>
             </Card>
         </div>
     </>
