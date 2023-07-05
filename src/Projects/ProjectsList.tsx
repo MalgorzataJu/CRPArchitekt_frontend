@@ -4,6 +4,7 @@ import {ProjectTable} from "./ProjectTable";
 import {Login} from "../views/Login";
 import {apiUrl} from "../config/api";
 import {Spinner} from "../component/common/spiner/spinner";
+import {toast} from "react-toastify";
 
 
 export const ProjectsList = () => {
@@ -26,6 +27,7 @@ export const ProjectsList = () => {
             setProjects(result);
             setIsLogin(true);
             console.log(result)
+            toast.success("Udało się");
         }finally {
 
         }}

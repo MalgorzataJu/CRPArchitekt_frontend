@@ -1,10 +1,11 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import {CreateProject, ProjectItemEntity} from 'types';
-import './AddProject.css';
 import {Card} from "react-bootstrap";
 import {ProjectsView} from "../../views/ProjectsView";
 import {apiUrl} from "../../config/api";
 import {Spinner} from "../../component/common/spiner/spinner";
+import '../../Layout/style.css';
+import {toast} from "react-toastify";
 
 export const AddProject = () => {
     const [form, setForm] = useState<CreateProject>({
@@ -51,15 +52,20 @@ export const AddProject = () => {
         setLoading(true);
 
         try {
-            // console.log(validate())
-            //     if (validate()) {
-                //     const res = await axios.post(`${apiUrl}/project`, form,
-                //         {withCredentials: true}
-                //     );
-                //     const data: ProjectItemEntity = await res.data;
-                //
-                //     setResultInfo({status: true, message: `${data.name} has been created.`});
-                // }
+
+                if (validate()) {
+                    const res = await fetch(`${apiUrl}/project`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify(form),
+                    });
+                    const data: ProjectItemEntity = await res.json();
+                    toast.success("Udało się");
+                    setResultInfo({status: true, message: `${data.name} has been created.`});
+                }
 
         } finally {
             setLoading(false);

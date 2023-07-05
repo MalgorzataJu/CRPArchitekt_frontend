@@ -17,15 +17,19 @@ export const ProjectTableRow = (props: Props) => {
             return;
         }
 
-        // const res = await axios.delete(`${apiUrl}/project/${props.project.id}`, {
-        //     withCredentials: true,
-        // });
-        //
-        // if ([400, 500].includes(res.status)) {
-        //     const error = await res.data;
-        //     alert(`Error occurred: ${error.message}`);
-        //     return;
-        // }
+        const res = await fetch(`${apiUrl}/project/${props.project.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+
+        if ([400, 500].includes(res.status)) {
+            const error = await res.json();
+            alert(`Error occurred: ${error.message}`);
+            return;
+        }
 
         props.onProjectsChange();
     };

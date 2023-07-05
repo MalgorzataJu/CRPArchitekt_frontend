@@ -11,11 +11,15 @@ export const SingleProjectView = () => {
     useEffect(() => {
         (async () => {
 
-            // const res =await axios.get(`${apiUrl}/project/${idOfProject}`, {
-            //     withCredentials: true,
-            // });
-            // setProject(await res.data);
-            // console.log(res.data)
+            const res =await fetch(`${apiUrl}/project/${idOfProject}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+            const data = await res.json();
+            setProject(data);
 
         })();
     }, []);

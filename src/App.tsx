@@ -1,22 +1,20 @@
-import React from 'react';
-import Background from "./Layout/tlo.jpg";
-import {AuthContextProvider} from "./auth/AuthContext";
+import React, {useContext, useEffect} from 'react';
+import {AuthContextProvider, AuthContextUser} from "./auth/AuthContext";
 import {HeaderMenuLink} from "./Layout/HeaderMenuLink";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {HeaderRouter} from "./Layout/HeaderRouter";
+import {Footer} from "./Layout/Footer";
+import './App.css';
 
 function App() {
+
   return (
-      <div className="App-div" style={{
-          backgroundImage: `url(${Background})`,
-          height:'95vh',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-      }}>
+      <div className="App-div">
           <AuthContextProvider>
-                <HeaderMenuLink/>
+              <HeaderMenuLink/>
                 <HeaderRouter/>
           </AuthContextProvider>
+          <Footer/>
     </div>
   )
 }
