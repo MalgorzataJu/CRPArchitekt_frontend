@@ -57,3 +57,34 @@
     background-color: #ffffff;
     color: gray;
 }
+.card {
+  height: fit-content;
+}
+
+.Content {
+    flex-grow: 2;
+}
+
+.footer {
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*background-color: black;*/
+    /*color: white;*/
+}
+
+#root {
+    /*height: 100vh;*/
+    background-image: url('tlo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+.App-div {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}

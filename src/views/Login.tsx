@@ -12,7 +12,7 @@ export const Login = () => {
 
   const loginSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-      console.log(loginPar)
+
      await login(loginPar);
   };
 
