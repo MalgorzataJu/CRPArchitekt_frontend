@@ -48,11 +48,9 @@ export const AddProject = () => {
 
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
-
         setLoading(true);
 
         try {
-
                 if (validate()) {
                     const res = await fetch(`${apiUrl}/project`, {
                         method: 'POST',
