@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useState} from "react";
+import {createContext, ReactNode, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {LogInPair, UserRole} from "types";
 import {apiUrl} from "../config/api";
@@ -15,7 +15,7 @@ export interface AuthContextValues {
 }
 export const AuthContextUser = createContext<AuthContextValues>({
   user: null,
-  isAuthenticated: true,
+  isAuthenticated: false,
   login: () => {},
   logout: () => {},
 });
@@ -28,12 +28,13 @@ interface Props {
 
 export const AuthContextProvider = ({ children }:Props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   const [user, setUser] = useState(() => {
 
     const userProfle = localStorage.getItem("jwt");
-    console.log("user", userProfle);
-    console.log("isAuten",isAuthenticated)
+
     if (userProfle) {
+      setIsAuthenticated(true)
       return JSON.parse(userProfle);
     }
     return null;
@@ -43,6 +44,7 @@ export const AuthContextProvider = ({ children }:Props) => {
 
   const login = async (payload: LogInPair) => {
     try {
+
       const apiResponse = await fetch(`${apiUrl}/auth/login`, {
         method: 'POST',
         headers: {
@@ -55,12 +57,12 @@ export const AuthContextProvider = ({ children }:Props) => {
 
     if (result === false ) {
       setUser(null);
-      setIsAuthenticated(false)
+      setIsAuthenticated(false);
     } else {
-    localStorage.setItem("jwt", JSON.stringify(result));
-      setUser(apiResponse);
-      setIsAuthenticated(true)
-    navigate("/");
+      localStorage.setItem("jwt", JSON.stringify(result));
+      setUser(result);
+      setIsAuthenticated(true);
+      navigate("/");
     }
     } finally {
     }
@@ -75,6 +77,7 @@ export const AuthContextProvider = ({ children }:Props) => {
           credentials: "include",
         });
     setUser(null);
+    setIsAuthenticated(false)
     navigate("/Login");
   };
 

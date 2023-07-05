@@ -10,13 +10,14 @@ export const SingleEmployeeView = () => {
 
     useEffect(() => {
         (async () => {
-            //
-            // const res =await axios.get(`${apiUrl}/employee/${idOfEmployee}`, {
-            //     withCredentials: true,
-            // });
-            // setEmployee(await res.data);
-            // console.log(res.data)
 
+            const res =await fetch(`${apiUrl}/employee/${idOfEmployee}`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+            const data = await res.json();
+            setEmployee(data);
+            console.log(data)
         })();
     }, []);
 
@@ -33,15 +34,23 @@ export const SingleEmployeeView = () => {
                 <Table striped bordered hover>
                     <tbody>
                     <tr>
-                        <th>email:</th>
+                        <th>Imię</th>
+                        <td>{employee.firstName}</td>
+                    </tr>
+                    <tr>
+                        <th>Nazwisko</th>
+                        <td>{employee.lastName}</td>
+                    </tr>
+                    <tr>
+                        <th>email</th>
                         <td>{employee.email}</td>
                     </tr>
                     <tr>
-                        <th>rola:</th>
+                        <th>tel.</th>
                         <td>{employee.tel}</td>
                     </tr>
                     <tr>
-                        <th>Stawka:</th>
+                        <th>Stawka</th>
                         <td>{employee.hourly}</td>
                     </tr>
                     </tbody>
