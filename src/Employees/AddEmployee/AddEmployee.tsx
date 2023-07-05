@@ -1,9 +1,9 @@
 import React, { SyntheticEvent, useEffect, useState} from 'react';
-import '../../Projects/AddAndEditProject/AddProject.css';
 import {EmployeesView} from "../../views/EmployeesView";
 import {Card} from "react-bootstrap";
 import {apiUrl} from "../../config/api";
 import {Spinner} from "../../component/common/spiner/spinner";
+import '../../Layout/style.css';
 
 export const AddEmployee = () => {
     const [loading, setLoading] = useState<boolean>(false);

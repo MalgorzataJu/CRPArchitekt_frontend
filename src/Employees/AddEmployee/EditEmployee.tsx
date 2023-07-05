@@ -23,19 +23,17 @@ export const EditEmployee = () => {
 
     useEffect(() => {
         (async () => {
-            const apiResponse = await fetch(`${apiUrl}//${idOfEmployee}`, {
+            const apiResponse = await fetch(`${apiUrl}/employee/${idOfEmployee}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include',
             });
-            const res = await apiResponse.json();
-            const employee = await res.data;
-
+            const employee = await apiResponse.json();
             setForm({
-                firstName: employee.name,
-                lastName:employee.lastname,
+                firstName: employee.firstName,
+                lastName:employee.lastName,
                 email: employee.email,
                 hourly:employee.hourly,
                 tel: employee.tel,
@@ -44,7 +42,6 @@ export const EditEmployee = () => {
     }, []);
 
     const updateForm = (key: string, value: any) => {
-
 
         setForm(form => ({
             ...form,
@@ -57,11 +54,16 @@ export const EditEmployee = () => {
 
         setLoading(true);
         try {
-            // const res = await axios.put(`${apiUrl}/employee/${idOfEmployee}`, form,
-            //     {withCredentials: true}
-            //     );
-            // const data = await res.data;
-            //
+            const res = await fetch(`${apiUrl}/employee/${idOfEmployee}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: "include",
+                body: JSON.stringify(form),
+            })
+            // const data = await res.json();
+
             // setResultInfo({status: true, message: `${data.name} has been changed.`});
         } finally {
             setLoading(false);
@@ -104,7 +106,7 @@ export const EditEmployee = () => {
                         className="InputForm"
                         name="firstName"
                         value={form.firstName}
-                        onChange={e => updateForm('name', e.target.value)}
+                        onChange={e => updateForm('firstName', e.target.value)}
                     />
                 </label>
             </div>
