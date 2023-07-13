@@ -14,7 +14,7 @@ export const HeaderMenuLink = () => {
                 <Navbar.Brand as={Link} to="/">RCP ARCHITEKT</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    {user && (
+                    {user?.role == 'Boss' && (
                         <Nav justify className="me-auto">
                             <Nav.Link as={Link} to="/projects">Projekty</Nav.Link>
                             <Nav.Link as={Link} to="/employee">Pracownicy</Nav.Link>
@@ -28,6 +28,18 @@ export const HeaderMenuLink = () => {
                             </NavDropdown>
                         </Nav>
                         )}
+                    {user?.role == 'Employee' && (
+                        <Nav justify className="me-auto">
+                            <Nav.Link as={Link} to="/projects">Projekty</Nav.Link>
+                            <Nav.Link  as={Link} to="/hours">Godziny</Nav.Link>
+                            <NavDropdown title="Dodaj" id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="/add-project">Projekt</NavDropdown.Item>
+                                <NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    )}
                     {user && (
                         <Nav className="nav justify-content-end">
                             <NavDropdown title={user?.email} id="collasible-nav-dropdown">

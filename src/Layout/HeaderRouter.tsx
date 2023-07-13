@@ -14,10 +14,13 @@ import {HoursView} from "../views/HoursView";
 import {AddProject} from "../Projects/AddAndEditProject/AddProject";
 import {EditProject} from "../Projects/AddAndEditProject/EditProject";
 import {SingleProjectView} from "../Projects/SingleProjectView";
+import {AuthContextUser} from "../auth/AuthContext";
 
-export const HeaderRouter=() => (
-        <div className='Content'>
-            <Routes>
+export const HeaderRouter=() => {
+    const {isAuthenticated} = useContext(AuthContextUser);
+
+   return <div className='Content'>
+              <Routes>
                 <Route
                     path="/"
                     element={<HomeView/>}
@@ -26,6 +29,9 @@ export const HeaderRouter=() => (
                     path="/login"
                     element={<Login/>}
                 ></Route>
+
+         {isAuthenticated &&(
+             <>
                 <Route
                     path="/employee"
                     element={
@@ -58,48 +64,39 @@ export const HeaderRouter=() => (
 
                 <Route path="/projects"
                        element={
-                           <ProtectedRoute accessBy="Boss">
                                <ProjectsView/>
-                           </ProtectedRoute>
                        }
                 ></Route>
                 <Route path="/project/:idOfProject"
                        element={
-                           <ProtectedRoute accessBy="Boss">
                                <SingleProjectView/>
-                           </ProtectedRoute>
                        }
                 ></Route>
                 <Route path="/project/edit/:idOfProject"
                        element={
-                           <ProtectedRoute accessBy="Boss">
                                <EditProject/>
-                           </ProtectedRoute>
                        }
                 ></Route>
 
                 <Route path="/add-project"
                        element={
-                           <ProtectedRoute accessBy="Boss">
                                <AddProject/>
-                           </ProtectedRoute>
                        }
                 ></Route>
                 <Route path="/hours"
                        element={
-                           <ProtectedRoute accessBy="Boss">
-                               <HoursView/>
-                           </ProtectedRoute>
+                           <HoursView/>
                        }
                 ></Route>
                 <Route path="/add-hour"
                        element={
-                           <ProtectedRoute accessBy="Boss">
                                <AddHours/>
-                           </ProtectedRoute>
                        }
                 ></Route>
+             </>
+             )}
                 <Route path="*" element={<NotFoundView/>}/>
             </Routes>
+
         </div>
-    )
+}
