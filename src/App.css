@@ -2,7 +2,7 @@
     text-align: center;
 }
 .Content {
-    font-size: 1rem;
+    font-size:0.3rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
 }
@@ -11,11 +11,16 @@
     margin-left: 2rem !important;
 }
 
+h2 {
+    font-size: .8rem;
+}
+
 .card {
     padding: 30px;
     margin-top: 30px!important;
     background-color: #eaeaea !important;
     color: #21252a;
+    min-width: 600px;
 }
 
 .btn-logout {
@@ -24,7 +29,7 @@
 }
 
 .card p {
-    font-size: .6rem;
+    font-size: 1rem;
 }
 
 .card-login {
@@ -39,7 +44,14 @@
     }
 }
 .table {
-    font-size: 0.7rem;
+    font-size: .8rem;
+}
+th {
+    font-size: .7rem;
+}
+.table thead th {
+    background-color: #060e0e;
+    color:white;
 }
 .table a {
     color: #1a1717;
