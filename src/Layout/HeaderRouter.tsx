@@ -15,6 +15,7 @@ import {AddProject} from "../Projects/AddAndEditProject/AddProject";
 import {EditProject} from "../Projects/AddAndEditProject/EditProject";
 import {SingleProjectView} from "../Projects/SingleProjectView";
 import {AuthContextUser} from "../auth/AuthContext";
+import {KindOfWorkView} from "../views/KindOfWorkView";
 
 export const HeaderRouter=() => {
     const {isAuthenticated} = useContext(AuthContextUser);
@@ -93,6 +94,11 @@ export const HeaderRouter=() => {
                                <AddHours/>
                        }
                 ></Route>
+                 <Route path="/kindofwork"
+                        element={
+                            <KindOfWorkView/>
+                        }
+                 ></Route>
              </>
              )}
                 <Route path="*" element={<NotFoundView/>}/>

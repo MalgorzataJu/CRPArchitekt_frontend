@@ -14,32 +14,33 @@ export const HeaderMenuLink = () => {
                 <Navbar.Brand as={Link} to="/">RCP ARCHITEKT</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    {user?.role == 'Boss' && (
-                        <Nav justify className="me-auto">
+                    <Nav className="me-auto">
+                    {isAuthenticated &&(<>
                             <Nav.Link as={Link} to="/projects">Projekty</Nav.Link>
-                            <Nav.Link as={Link} to="/employee">Pracownicy</Nav.Link>
+                            {/*<Nav.Link as={Link} to="/tasks">Zadania</Nav.Link>*/}
                             <Nav.Link  as={Link} to="/hours">Godziny</Nav.Link>
+                            <Nav.Link as={Link} to="/kindofwork">Rodzaje Godzin</Nav.Link>
                             <NavDropdown title="Dodaj" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="/add-project">Projekt</NavDropdown.Item>
                                 <NavDropdown.Item href="/add-employee">Pracownika</NavDropdown.Item>
-                                {/*<NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>*/}
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
-                        )}
-                    {user?.role == 'Employee' && (
-                        <Nav justify className="me-auto">
-                            <Nav.Link as={Link} to="/projects">Projekty</Nav.Link>
-                            <Nav.Link  as={Link} to="/hours">Godziny</Nav.Link>
-                            <NavDropdown title="Dodaj" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="/add-project">Projekt</NavDropdown.Item>
                                 <NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
                             </NavDropdown>
-                        </Nav>
-                    )}
+                        </>
+                        )}
+                    {user?.role == 'Boss' && (<>
+                            <Nav.Link as={Link} to="/employee">Pracownicy</Nav.Link>
+                            <NavDropdown title="Dodaj" id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="/add-project">Projekt</NavDropdown.Item>
+                                <NavDropdown.Item href="/add-employee">Pracownika</NavDropdown.Item>
+                                <NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
+                            </NavDropdown>
+                        </>
+                        )}
+                    </Nav>
                     {user && (
                         <Nav className="nav justify-content-end">
                             <NavDropdown title={user?.email} id="collasible-nav-dropdown">
