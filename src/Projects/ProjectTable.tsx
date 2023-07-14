@@ -19,7 +19,8 @@ export const ProjectTable = (props: Props) => {
                 <th>Data rozpoczęcia</th>
                 <th>Data zakończenia</th>
                 <th>Planowana ilość godzin</th>
-                <th>Wypracownana ilość godzin</th>
+                <th>Zostało godzin</th>
+                <th>Wypracownana ilość w szczegółach</th>
                 <th>Kontakt</th>
                 <th>Edytuj</th>
             </tr>
@@ -31,6 +32,8 @@ export const ProjectTable = (props: Props) => {
                         key={el.project.id}
                         number={el.place}
                         project={el.project}
+                        hours={el.hours}
+                        sum={el.sumOfDone}
                         onProjectsChange={props.onProjectsChange}
                     />
                 ))

@@ -79,8 +79,6 @@ export const AddHours = (props: Props) => {
                 body: JSON.stringify(form),
             });
             const result = await apiResponse.json();
-            console.log(result)
-
         } finally {
 
             setLoading(false);
@@ -126,6 +124,7 @@ export const AddHours = (props: Props) => {
                     className="InputForm"
                     value={form.projectId}
                     onChange={e => updateForm('projectId', e.target.value)}
+
                 >
                     {
                         data.projectList.map(project => (

@@ -26,6 +26,7 @@ export const ProjectsList = () => {
             const result = await apiResponse.json();
             setProjects(result);
             setIsLogin(true);
+            console.log(result)
         }finally {
 
         }}

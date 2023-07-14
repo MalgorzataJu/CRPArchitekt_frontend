@@ -1,9 +1,11 @@
-import { ProjectSimpleRes} from "types";
+import {ListKindOfHourForProject, ProjectSimpleRes} from "types";
 import {Link} from "react-router-dom";
 import {apiUrl} from "../config/api";
 
 interface Props {
     project: ProjectSimpleRes;
+    hours:ListKindOfHourForProject[];
+    sum:number;
     number: number;
     onProjectsChange: () => void;
 }
@@ -54,7 +56,20 @@ export const ProjectTableRow = (props: Props) => {
                 {props.project.quantityHours}
             </td>
             <td>
-                Ilośc godzin wypracowana
+                {props.project.quantityHours-props.sum }
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        {
+                            props.hours.map((el, index) =>(
+                                <tr key ={index}>
+                                    {el.kindofwork}: {el.sumKindOfWork}
+                                </tr>
+                            ))
+                        }
+                    </tr>
+                </table>
             </td>
             <td>
                 {props.project.contact}
