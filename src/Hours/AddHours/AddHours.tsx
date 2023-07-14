@@ -5,13 +5,10 @@ import {HoursView} from "../../views/HoursView";
 import {apiUrl} from "../../config/api";
 import {Spinner} from "../../component/common/spiner/spinner";
 import { toast } from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
-interface Props {
-    // onHoursChange: () => void;
-}
-
-export const AddHours = (props: Props) => {
-
+export const AddHours = () => {
+    const navigate = useNavigate();
     const [data, setData] = useState<ListAllToAddHoursRes >({
         employeeList: [],
         kindofworkList: [],
@@ -30,9 +27,10 @@ export const AddHours = (props: Props) => {
     const [resultInfo, setResultInfo] = useState<string | null>(null);
 
     const updateForm = (key: string, value: any) => {
+
         setForm(form => ({
             ...form,
-            [key]: value,
+            [key]:  (key === 'quantity')?Number(value): value,
         }));
     };
 
@@ -52,7 +50,7 @@ export const AddHours = (props: Props) => {
                             projectId: result.projectList[0].id,
                             employeeId: result.employeeList[0].id,
                             kindofworkId: result.kindofworkList[0].id,
-                            quantity: 10,
+                            quantity: 1,
                             date:  new Date().toLocaleDateString('en-CA'),
                         })
         } finally {
@@ -79,11 +77,10 @@ export const AddHours = (props: Props) => {
                 body: JSON.stringify(form),
             });
             const result = await apiResponse.json();
+            setResultInfo(result.isSuccess);
         } finally {
-
             setLoading(false);
         }
-        // props.onHoursChange();
     };
 
     if (loading) {
@@ -91,7 +88,7 @@ export const AddHours = (props: Props) => {
     }
 
     if (resultInfo) {
-        return <HoursView/>
+       navigate('/hours')
     }
 
     return <>
@@ -170,6 +167,7 @@ export const AddHours = (props: Props) => {
                         className="InputForm"
                         type="number"
                         name="quantity"
+                        min="0.1" step=".1"
                         value={form.quantity}
                         onChange={e => updateForm('quantity', e.target.value)}
                     /><br/>
