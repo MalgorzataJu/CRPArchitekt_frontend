@@ -11,7 +11,8 @@ interface Props {
 }
 
 export const ProjectTableRow = (props: Props) => {
-
+    const hourToDo =props.project.quantityHours-props.sum;
+    const prc = ((props.sum/props.project.quantityHours)*100);
     const deleteProject = async (e: React.MouseEvent<Element, MouseEvent>) => {
         e.preventDefault();
 
@@ -32,7 +33,6 @@ export const ProjectTableRow = (props: Props) => {
             alert(`Error occurred: ${error.message}`);
             return;
         }
-
         props.onProjectsChange();
     };
     return (
@@ -44,7 +44,35 @@ export const ProjectTableRow = (props: Props) => {
                 </Link>
             </td>
             <td>
-                {props.project.description}
+
+                <div> {hourToDo.toFixed(2)}/{prc.toFixed()}%</div>
+                <div
+                    style={{
+                        backgroundColor:(hourToDo < 0)?'#f30303':'#0d6efd',
+                        color:'white',
+                        display:'block',
+                        width:`${prc % 100}%`,
+                        height:'10px',
+                } }
+                >
+              </div>
+                { (hourToDo < 0) &&(<span>Przekroczono ilośc godzin</span>)}
+            </td>
+            <td>
+                {props.project.quantityHours}
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        {
+                            props.hours.map((el, index) =>(
+                                <tr key ={index}>
+                                    {el.kindofwork}: {el.sumKindOfWork.toFixed(2)}
+                                </tr>
+                            ))
+                        }
+                    </tr>
+                </table>
             </td>
             <td>
                 {props.project.startDate}
@@ -53,26 +81,10 @@ export const ProjectTableRow = (props: Props) => {
                 {props.project.endDate}
             </td>
             <td>
-                {props.project.quantityHours}
-            </td>
-            <td>
-                {props.project.quantityHours-props.sum }
-            </td>
-            <td>
-                <table>
-                    <tr>
-                        {
-                            props.hours.map((el, index) =>(
-                                <tr key ={index}>
-                                    {el.kindofwork}: {el.sumKindOfWork}
-                                </tr>
-                            ))
-                        }
-                    </tr>
-                </table>
-            </td>
-            <td>
                 {props.project.contact}
+            </td>
+            <td>
+                {props.project.description}
             </td>
             <td>
                 <a href="#" onClick={deleteProject}>🗑️</a>

@@ -18,6 +18,7 @@ export const HoursTable = (props: Props) => {
                 <th>Typ pracy</th>
                 <th>Ilość godzin</th>
                 <th>Data realizacji</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>

@@ -17,13 +17,17 @@ export const HeaderMenuLink = () => {
                     <Nav className="me-auto">
                     {isAuthenticated &&(<>
                             <Nav.Link as={Link} to="/projects">Projekty</Nav.Link>
-                            {/*<Nav.Link as={Link} to="/tasks">Zadania</Nav.Link>*/}
+                            <Nav.Link as={Link} to="/tasks">Zadania</Nav.Link>
                             <Nav.Link  as={Link} to="/hours">Godziny</Nav.Link>
-                            <Nav.Link as={Link} to="/kindofwork">Rodzaje Godzin</Nav.Link>
+                            <Nav.Link as={Link} to="/add-hour"> <span style={{color:'yellow'}}>DODAJ Godziny</span></Nav.Link>
+
                             <NavDropdown title="Dodaj" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="/add-project">Projekt</NavDropdown.Item>
-                                <NavDropdown.Item href="/add-employee">Pracownika</NavDropdown.Item>
+                                {user?.role == 'Boss' && (
+                                    <NavDropdown.Item href="/add-employee">Pracownika</NavDropdown.Item>
+                                    )}
                                 <NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>
+                                <NavDropdown.Item href="/kindofwork">Rodzaje Godzin</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
                             </NavDropdown>

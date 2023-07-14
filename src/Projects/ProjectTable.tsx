@@ -15,13 +15,13 @@ export const ProjectTable = (props: Props) => {
             <tr>
                 <th>lp.</th>
                 <th>Nazwa Projektu</th>
-                <th>Opis</th>
+                <th>Pozostało godzin / wykonano %</th>
+                <th>Planowana ilość godzin</th>
+                <th>Wypracownana ilość w szczegółach</th>
                 <th>Data rozpoczęcia</th>
                 <th>Data zakończenia</th>
-                <th>Planowana ilość godzin</th>
-                <th>Zostało godzin</th>
-                <th>Wypracownana ilość w szczegółach</th>
                 <th>Kontakt</th>
+                <th>Opis</th>
                 <th>Edytuj</th>
             </tr>
             </thead>

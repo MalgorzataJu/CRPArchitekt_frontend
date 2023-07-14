@@ -37,9 +37,7 @@ if (hoursList === null) {
 
     return  <>
         <div>
-            {/*<AddHours/>*/}
             <HoursTable hours={hoursList} onHoursChange={refreshHoursList}/>
-            {/*<AddEmployee onHoursChange={refreshHoursList}/>*/}
         </div>
     </>
 

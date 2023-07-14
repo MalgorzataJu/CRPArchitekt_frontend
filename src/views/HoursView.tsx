@@ -1,6 +1,7 @@
 
 import Card from "react-bootstrap/Card";
 import {HoursList} from "../Hours/HoursList";
+import {AddHours} from "../Hours/AddHours/AddHours";
 
 export const HoursView = () => {
 
