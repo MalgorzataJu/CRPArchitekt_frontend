@@ -20,7 +20,9 @@ export const HeaderMenuLink = () => {
                             <Nav.Link as={Link} to="/tasks">Zadania</Nav.Link>
                             <Nav.Link  as={Link} to="/hours">Godziny</Nav.Link>
                             <Nav.Link as={Link} to="/add-hour"> <span style={{color:'yellow'}}>DODAJ Godziny</span></Nav.Link>
-
+                            {user?.role == 'Boss' && (
+                                <Nav.Link as={Link} to="/employee">Pracownicy</Nav.Link>
+                            )}
                             <NavDropdown title="Dodaj" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="/add-project">Projekt</NavDropdown.Item>
                                 {user?.role == 'Boss' && (
@@ -28,17 +30,6 @@ export const HeaderMenuLink = () => {
                                     )}
                                 <NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>
                                 <NavDropdown.Item href="/kindofwork">Rodzaje Godzin</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
-                            </NavDropdown>
-                        </>
-                        )}
-                    {user?.role == 'Boss' && (<>
-                            <Nav.Link as={Link} to="/employee">Pracownicy</Nav.Link>
-                            <NavDropdown title="Dodaj" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="/add-project">Projekt</NavDropdown.Item>
-                                <NavDropdown.Item href="/add-employee">Pracownika</NavDropdown.Item>
-                                <NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
                             </NavDropdown>

@@ -46,10 +46,6 @@ export const SingleEmployeeView = () => {
                         <td>{employee.email}</td>
                     </tr>
                     <tr>
-                        <th>tel.</th>
-                        <td>{employee.tel}</td>
-                    </tr>
-                    <tr>
                         <th>Stawka</th>
                         <td>{employee.hourly}</td>
                     </tr>

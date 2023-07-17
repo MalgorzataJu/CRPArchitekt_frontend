@@ -16,7 +16,6 @@ export const EditEmployee = () => {
     const [form, setForm] = useState<EmployeeResAllInfo>({
         firstName: '',
         lastName: '',
-        tel: '',
         email: '',
         hourly: 0,
     });
@@ -36,7 +35,6 @@ export const EditEmployee = () => {
                 lastName:employee.lastName,
                 email: employee.email,
                 hourly:employee.hourly,
-                tel: employee.tel,
             });
         })();
     }, []);
@@ -119,18 +117,6 @@ export const EditEmployee = () => {
                         name = "email"
                         value={form.email}
                         onChange={e => updateForm('email', e.target.value)}
-                    />
-                </label>
-            </div>
-            <div className='LabelForm'>
-                <label >
-                    Telefon:
-                    <input
-                        className="InputForm"
-                        type="text"
-                        name = "tel"
-                        value={form.tel}
-                        onChange={e => updateForm('tel', e.target.value)}
                     />
                 </label>
             </div>

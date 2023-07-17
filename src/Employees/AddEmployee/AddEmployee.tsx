@@ -4,6 +4,7 @@ import {Card} from "react-bootstrap";
 import {apiUrl} from "../../config/api";
 import {Spinner} from "../../component/common/spiner/spinner";
 import '../../Layout/style.css';
+import {UserRole} from "types";
 
 export const AddEmployee = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -14,19 +15,21 @@ export const AddEmployee = () => {
     });
 
     const [errorLabel, setErrorLabel] = useState({
-        name: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
         confirm: '',
+        hourly: '',
     })
     const [form, setForm] = useState({
-        name: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         email: '',
-        password: '',
+        pwd: '',
         confirm: '',
         hourly: 0,
+        role: UserRole.Employee,
     });
 
     const sendForm = async (e: SyntheticEvent) => {
@@ -35,15 +38,21 @@ export const AddEmployee = () => {
         setLoading(true);
 
         try {
-            // axios.post(`${apiUrl}/employee/register`, form,
-            //     {withCredentials: true}
-            // )
-            //     .then((response) => {
-            //
-            //        response.data.id
-            //            ?setResultInfo({isOk:true, message: response.data.email})
-            //            :setResultInfo({isOk:false, message: 'Niestety nie można zarejestrować pracownika.'});
-            //     });
+            const apiResponse = await fetch(`${apiUrl}/employee/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(form),
+            });
+            const result = await apiResponse.json();
+            setResultInfo( {
+                message: result,
+                isOk: true,
+              });
+            console.log(result)
+            console.log( form)
 
         } finally {
             setLoading(false);
@@ -64,15 +73,15 @@ export const AddEmployee = () => {
     const validation = (key: string): boolean => {
 
         let text = 'true';
-        if (key === 'name' && form.name.length < 3)
+        if (key === 'name' && form.firstName.length < 3)
             text = 'Imie jest za krótkie.';
-        if (key === 'lastname' && form.lastname.length < 3)
+        if (key === 'lastname' && form.lastName.length < 3)
             text = 'Nazwisko jest za krótkie.';
         if ((key === 'email') && (form.email.length < 3 || !form.email.includes('@')))
             text = 'Email powinien zawierać @ oraz min 3 znaki.';
-        if (key === 'password' && form.password.length < 8)
+        if (key === 'password' && form.pwd.length < 8)
             text = 'Hasło powinno mieć min 8 znaków.';
-        if (key === 'confirm' && form.password !== form.confirm)
+        if (key === 'confirm' && form.pwd !== form.confirm)
             text = 'Hasła nie są identyczne.';
 
         setErrorLabel(label => ({
@@ -104,7 +113,7 @@ export const AddEmployee = () => {
         return <Spinner/>;
     }
 
-    if (resultInfo.isOk) {
+    if (resultInfo.message != '') {
         return  <EmployeesView/>
     }
     return<>
@@ -118,18 +127,18 @@ export const AddEmployee = () => {
             style={{height: '30px', color: 'red'}}
         >{printError()}</div>
         <form onSubmit={sendForm}>
-            <div >{resultInfo.message}</div>
+            {/*<div >{resultInfo.message}</div>*/}
             <div className='LabelForm'>
             <label>
                 Imię:
                 <input
                     className="InputForm"
                     type="text"
-                    name='name'
-                    onChange={e => changeForm("name", e.target.value)}
-                    onKeyUp={e => validation("name")}
+                    name='firstName'
+                    onChange={e => changeForm("firstName", e.target.value)}
+                    onKeyUp={e => validation("firstName")}
                     style={{
-                        borderColor: `${changeColor("name")}`
+                        borderColor: `${changeColor("firstName")}`
                     }}
                 />
             </label>
@@ -141,10 +150,10 @@ export const AddEmployee = () => {
                     className="InputForm"
                     type="text"
                     name='lastName'
-                    onChange={e => changeForm("lastname", e.target.value)}
-                    onKeyUp={e => validation("lastname")}
+                    onChange={e => changeForm("lastName", e.target.value)}
+                    onKeyUp={e => validation("lastName")}
                     style={{
-                        borderColor: `${changeColor("lastname")}`
+                        borderColor: `${changeColor("lastName")}`
                     }}
                 />
             </label>
@@ -170,11 +179,11 @@ export const AddEmployee = () => {
                 <input
                     className="InputForm"
                     type="password"
-                    name='password'
-                    onChange={e => changeForm("password", e.target.value)}
-                    onKeyUp={e => validation("password")}
+                    name='pwd'
+                    onChange={e => changeForm("pwd", e.target.value)}
+                    onKeyUp={e => validation("pwd")}
                     style={{
-                        borderColor: `${changeColor("password")}`
+                        borderColor: `${changeColor("pwd")}`
                     }}
                 />
             </label>
@@ -208,12 +217,29 @@ export const AddEmployee = () => {
             </label>
             </div>
             <div className='LabelForm'>
+                    rola w systemie:
+                    <select
+                        className="InputForm"
+                        value={form.role}
+                        name='role'
+                        onChange={e => changeForm("role", e.target.value)}
+                        // onKeyUp={e => validation("role")}
+                    >
+                        <option key={1} value={UserRole.Employee}>
+                            {UserRole.Employee}
+                        </option>
+                        <option key={2} value={UserRole.Boss}>
+                            {UserRole.Boss}
+                        </option>
+            </select>
+        </div>
+            <div className='LabelForm'>
             <button
                 className="ButtonForm unactive"
                 style={{
                     borderColor: `${!isValid ? 'red' : 'green'}`
                 }}
-                disabled={!isValid}
+                // disabled={!isValid}
                 type={'submit'}>ZAREJESTRUJ
             </button>
             </div>
