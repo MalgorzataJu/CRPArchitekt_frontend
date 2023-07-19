@@ -24,8 +24,6 @@ export const HoursTableRow = (props: Props) => {
             credentials: 'include',
         });
 
-        console.log(res);
-
         if ([400, 500].includes(res.status)) {
             alert(`Error occurred: ${res.statusText}`);
             return;
