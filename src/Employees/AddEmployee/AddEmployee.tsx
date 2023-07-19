@@ -64,6 +64,7 @@ export const AddEmployee = () => {
     }, [form, isValid]);
 
     const changeForm = (key: string, value: string) => {
+        console.log(form)
         setForm(form => ({
             ...form,
             [key]: value,

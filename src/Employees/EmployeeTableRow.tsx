@@ -18,17 +18,13 @@ export const EmployeeTableRow = (props: Props) => {
         if (!window.confirm(`Are you sure you want to remove ${props.employee.name}?`)) {
             return;
         }
-
-        // axios.delete(`${apiUrl}/employee/${props.employee.id}`,
-        //     {withCredentials: true}
-        // )
-        //     .then((res) => {
-        //         if ([400, 500].includes(res.status)) {
-        //             const error = res.statusText;
-        //             alert(`Error occurred: ${error}`);
-        //             return;
-        //         }
-        //     });
+        const apiResponse = await fetch(`${apiUrl}/employee/${props.employee.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
         props.onEmployeeChange();
     };
 
