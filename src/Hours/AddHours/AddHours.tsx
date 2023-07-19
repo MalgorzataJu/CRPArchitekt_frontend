@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useContext, useEffect, useState} from 'react';
 import {CreateHourRecord, ListAllToAddHoursRes} from 'types';
 import {Card} from "react-bootstrap";
 import {HoursView} from "../../views/HoursView";
@@ -6,14 +6,17 @@ import {apiUrl} from "../../config/api";
 import {Spinner} from "../../component/common/spiner/spinner";
 import { toast } from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {AuthContextUser} from "../../auth/AuthContext";
 
 export const AddHours = () => {
     const navigate = useNavigate();
+    const { user } = useContext(AuthContextUser);
+
     const [data, setData] = useState<ListAllToAddHoursRes >({
         employeeList: [],
         kindofworkList: [],
         projectList: [],
-    })
+    });
 
     const [form, setForm] = useState<CreateHourRecord>({
         projectId: '',

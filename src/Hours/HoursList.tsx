@@ -29,6 +29,7 @@ export const HoursList = () => {
             credentials: 'include',
         });
         const result = await apiResponse.json();
+        console.log(result.items)
         setHoursList(result.items);
         setPagesCount(result.pagesCount);
         setTotalItem(result.totalItems);

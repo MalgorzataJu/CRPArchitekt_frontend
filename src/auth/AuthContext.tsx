@@ -5,6 +5,7 @@ import {apiUrl} from "../config/api";
 
 interface UserData {
   role: UserRole;
+  id:string;
   email: string ;
 }
 export interface AuthContextValues {
