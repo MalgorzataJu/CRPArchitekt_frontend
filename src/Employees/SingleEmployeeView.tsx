@@ -53,9 +53,40 @@ export const SingleEmployeeView = () => {
                 </Table>
                 <Link to={`/employee/edit/${employee.id}`}>
                     <Button variant="secondary" type="submit" >
-                        Edit
+                        Edytuj dane pracownika
                     </Button>
                 </Link>
+                <h4>Widok miesiąca pracy</h4>
+                <Table responsive>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <th key={index}>Table heading</th>
+                        ))}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <td key={index}>Table cell {index}</td>
+                        ))}
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <td key={index}>Table cell {index}</td>
+                        ))}
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <td key={index}>Table cell {index}</td>
+                        ))}
+                    </tr>
+                    </tbody>
+                </Table>
             </Card>
         </div>
     </>;

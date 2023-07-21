@@ -11,7 +11,7 @@ export const HoursView = () => {
                 // style={{ minHeight: "500px", minWidth: "600px" }}
             >
                 <Card>
-                    <Card.Header><h2>Lista Godzin</h2></Card.Header>
+                    <Card.Header><h2>Lista Godzin </h2></Card.Header>
                     <HoursList/>
                 </Card>
             </div>
