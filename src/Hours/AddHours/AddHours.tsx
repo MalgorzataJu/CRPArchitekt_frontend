@@ -49,6 +49,8 @@ export const AddHours = () => {
             });
             const result = await apiResponse.json();
             setData(result);
+            // console.log(user);
+            // console.log(result.employeeList[1].id)
             setForm({
                             projectId: result.projectList[0].id,
                             employeeId: result.employeeList[0].id,

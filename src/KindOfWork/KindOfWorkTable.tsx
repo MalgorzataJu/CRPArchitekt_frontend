@@ -15,7 +15,7 @@ export const KindOfWorkTable = (props: Props) => {
                 <th>lp.</th>
                 <th>Rodzaj pracy</th>
                 <th>Stawka</th>
-                <th>Edytuj</th>
+                {/*<th>Edytuj</th>*/}
             </tr>
             </thead>
             <tbody>

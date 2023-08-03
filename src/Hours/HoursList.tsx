@@ -15,13 +15,11 @@ export const HoursList = () => {
     const [totalItems, setTotalItem] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [date, setDate] = useState({
-        month: 6,
-        year: 2023,
+        month: new Date().getMonth(),
+        year: new Date().getFullYear(),
     });
-    const month = ["stycznia", "lutego", "marca", "kwietnia", "maja",
-        "czerwca", "lipca", "sierpnia", "września", "października", "listopada",
-        "grudnia"];
-
+    const month = ["styczeń", "luty", "marzec", "kwiecień", "maj","czerwca",
+        "lipiec", "sierpień", "wrzesień", "październik", "listopad","grudzień"];
 
     const updateForm = (key: string, value: any) => {
 
@@ -73,17 +71,21 @@ if (hoursList === null) {
                     onChange={e => updateForm('month', e.target.value)}
                 >
                     {
-                        month.map((el, index) => {return <option value={index}>{el}</option>})
+                        month.map((el, index) => {
+                            if (index == date.month)
+                                return <option selected value={index}>{el}</option>
+                            return <option value={index}>{el}</option>})
                     }
-
                 </Form.Select>
                 ROK:
                 <Form.Select
                     size="sm"
                     aria-label="Default select example"
+                    // onChange={e => updateForm('month', e.target.value)}
                 >
                     {
-                        month.map((el, index) => {return <option value={index}>{el}</option>})
+                        <option>2023</option>
+                        // month.map((el, index) => {return <option value={index}>{el}</option>})
                     }
 
                 </Form.Select>

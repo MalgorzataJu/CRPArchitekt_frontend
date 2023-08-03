@@ -44,9 +44,9 @@ export const KindOfWorkTableRow = (props: Props) => {
             <td>
                     {props.kow.price}
             </td>
-            <td>
-                <a href="#" onClick={deleteProject}>🗑️</a>
-            </td>
+            {/*<td>*/}
+            {/*    <a href="#" onClick={deleteProject}>🗑️</a>*/}
+            {/*</td>*/}
         </tr>
     );
 };

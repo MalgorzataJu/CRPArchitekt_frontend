@@ -13,8 +13,13 @@ export const AddProject = () => {
         startDate:new Date().toLocaleDateString('en-CA'),
         endDate: new Date().toLocaleDateString('en-CA'),
         description: '',
-        quantityHours: 50,
         contact: '',
+        stocktaking: 0,
+        conception: 0,
+        setOf: 0,
+        excess: 0,
+        executive : 0,
+        control : 0,
     });
     const [loading, setLoading] = useState<boolean>(false);
     const [resultInfo, setResultInfo] = useState< {status:boolean, message:string}>({
@@ -81,7 +86,7 @@ export const AddProject = () => {
     return <>
             <div
                 className="d-flex justify-content-center align-items-center"
-                style={{ minHeight: "500px", minWidth: "500px"}}
+                style={{ minHeight: "500px"}}
             ><Card>
             <Card.Header><h2>Dodaj projekt</h2></Card.Header>
             <Card.Body>
@@ -109,7 +114,7 @@ export const AddProject = () => {
                     />
                 </label>
             </div>
-            <div className='LabelForm'>
+                <div className='LabelForm'>
                 <label>
                     Początek realizacji:
                     <input
@@ -120,8 +125,8 @@ export const AddProject = () => {
                         onChange={e => updateForm('startDate', e.target.value)}
                     />
                 </label>
-            </div>
-            <div className='LabelForm'>
+                </div>
+                <div className='LabelForm'>
                 <label >
                     Koniec realizacji:
                     <input
@@ -132,22 +137,83 @@ export const AddProject = () => {
                         onChange={e => updateForm('endDate', e.target.value)}
                     />
                 </label>
-            </div>
+                </div>
+                <div className='LabelForm'>
+                    <label>
+                        Inwentaryzacja:
+                        <input
+                            className="InputForm"
+                            type="number"
+                            name="stocktaking"
+                            value={form.stocktaking}
+                            onChange={e => updateForm('stocktaking', e.target.value)}
+                        /><br/>
+                    </label>
+                </div>
+                <div className='LabelForm'>
+                    <label>
+                        Koncepcja:
+                        <input
+                            className="InputForm"
+                            type="number"
+                            name="conception"
+                            value={form.conception}
+                            onChange={e => updateForm('conception', e.target.value)}
+                        /><br/>
+                    </label>
+                </div>
+                <div className='LabelForm'>
+                    <label>
+                        Zestawienie materiałów:
+                        <input
+                            className="InputForm"
+                            type="number"
+                            name="setOf"
+                            value={form.setOf}
+                            onChange={e => updateForm('setOf', e.target.value)}
+                        /><br/>
+                    </label>
+                </div>
+                <div className='LabelForm'>
+                    <label>
+                        Wykonawczy:
+                        <input
+                            className="InputForm"
+                            type="number"
+                            name="executive"
+                            value={form.executive}
+                            onChange={e => updateForm('executive', e.target.value)}
+                        /><br/>
+                    </label>
+                </div>
+                <div className='LabelForm'>
+                    <label>
+                        Dodatkowe:
+                        <input
+                            className="InputForm"
+                            type="number"
+                            name="excess"
+                            value={form.excess}
+                            onChange={e => updateForm('excess', e.target.value)}
+                        /><br/>
+                    </label>
+                </div>
+                <div className='LabelForm'>
+                    <label>
+                        Nadzór:
+                        <input
+                            className="InputForm"
+                            type="number"
+                            name="control"
+                            value={form.control}
+                            onChange={e => updateForm('control', e.target.value)}
+                        /><br/>
+                    </label>
+                </div>
+
             <div className='LabelForm'>
                 <label>
-                    Planowane godziny:
-                    <input
-                        className="InputForm"
-                        type="number"
-                        name="quantityHours"
-                        value={form.quantityHours}
-                        onChange={e => updateForm('quantityHours', e.target.value)}
-                    /><br/>
-                </label>
-            </div>
-            <div className='LabelForm'>
-                <label>
-                    Kontakt:
+                    <p>Kontakt:</p>
                     <input
                         className="InputForm"
                         type="text"
