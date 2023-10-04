@@ -1,20 +1,16 @@
-import {JSX, ReactElement, ReactNode, useContext} from "react";
+import {ReactNode, useContext} from "react";
 import {AuthContextUser} from "./AuthContext";
 import {NotFoundView} from "../views/NotFoundView";
 
 interface Props {
-  children: ReactElement<any, any>,
+  children: ReactNode,
   accessBy: string,
 }
 
-export const ProtectedRoute = ({ children, accessBy } : Props ): {children: JSX.Element} | JSX.Element=> {
+export const ProtectedRoute = ({ children, accessBy } : Props ) => {
   const {user} = useContext(AuthContextUser);
 
-  if (user?.role === "Admin")
-    return {children}
-  else {
-    return (user?.role === accessBy)
-        ? {children}
-        : <><NotFoundView/></> as React.ReactElement<any>
-  }
+  return ((user?.role === "Admin") || (user?.role === accessBy))
+    ?<>{children}</>
+    : <NotFoundView/>
 }

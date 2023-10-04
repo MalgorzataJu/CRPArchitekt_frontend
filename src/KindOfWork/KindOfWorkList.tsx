@@ -1,22 +1,19 @@
 import {useEffect, useState} from "react";
-import { ListProjectSimpleResAll } from "types";
-import {ProjectTable} from "./ProjectTable";
+import {ListKindOfWorkRes, ListProjectSimpleResAll} from "types";
 import {Login} from "../views/Login";
 import {apiUrl} from "../config/api";
 import {Spinner} from "../component/common/spiner/spinner";
-import {toast} from "react-toastify";
+import {KindOfWorkTable} from "./KindOfWorkTable";
 
 
-export const ProjectsList = () => {
-    const [projects, setProjects] = useState<ListProjectSimpleResAll | null>([]);
+export const KindOfWorkList = () => {
+    const [kindOfWork, setKindOfWork] = useState<ListKindOfWorkRes[] | null>([]);
     const [isLogin, setIsLogin] = useState<boolean>(false);
 
-    const refreshProject = async () => {
-
+    const refreshKOW = async () => {
         try {
-
-            setProjects(null);
-            const apiResponse = await fetch(`${apiUrl}/project`, {
+            setKindOfWork(null);
+            const apiResponse = await fetch(`${apiUrl}/kindofwork`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,21 +21,20 @@ export const ProjectsList = () => {
                 credentials: 'include',
             });
             const result = await apiResponse.json();
-            setProjects(result);
+            setKindOfWork(result);
             setIsLogin(true);
-            console.log(result)
         }finally {
 
         }}
 
     useEffect(() => {
-        refreshProject();
+        refreshKOW();
     }, []);
 
     if (!isLogin) return <Login/>
 
-    if (projects === null) {
+    if (kindOfWork === null) {
         return <Spinner/>;
     }
-    return <ProjectTable projects={projects} onProjectsChange={refreshProject}/>
+    return <KindOfWorkTable kow={kindOfWork} onKindOfWorkChange={refreshKOW}/>
 }

@@ -10,13 +10,14 @@ export const SingleEmployeeView = () => {
 
     useEffect(() => {
         (async () => {
-            //
-            // const res =await axios.get(`${apiUrl}/employee/${idOfEmployee}`, {
-            //     withCredentials: true,
-            // });
-            // setEmployee(await res.data);
-            // console.log(res.data)
 
+            const res =await fetch(`${apiUrl}/employee/${idOfEmployee}`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+            const data = await res.json();
+            setEmployee(data);
+            console.log(data)
         })();
     }, []);
 
@@ -33,24 +34,59 @@ export const SingleEmployeeView = () => {
                 <Table striped bordered hover>
                     <tbody>
                     <tr>
-                        <th>email:</th>
+                        <th>Imię</th>
+                        <td>{employee.firstName}</td>
+                    </tr>
+                    <tr>
+                        <th>Nazwisko</th>
+                        <td>{employee.lastName}</td>
+                    </tr>
+                    <tr>
+                        <th>email</th>
                         <td>{employee.email}</td>
                     </tr>
                     <tr>
-                        <th>rola:</th>
-                        <td>{employee.tel}</td>
-                    </tr>
-                    <tr>
-                        <th>Stawka:</th>
+                        <th>Stawka</th>
                         <td>{employee.hourly}</td>
                     </tr>
                     </tbody>
                 </Table>
                 <Link to={`/employee/edit/${employee.id}`}>
                     <Button variant="secondary" type="submit" >
-                        Edit
+                        Edytuj dane pracownika
                     </Button>
                 </Link>
+                <h4>Widok miesiąca pracy</h4>
+                <Table responsive>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <th key={index}>Table heading</th>
+                        ))}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <td key={index}>Table cell {index}</td>
+                        ))}
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <td key={index}>Table cell {index}</td>
+                        ))}
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        {Array.from({ length: 12 }).map((_, index) => (
+                            <td key={index}>Table cell {index}</td>
+                        ))}
+                    </tr>
+                    </tbody>
+                </Table>
             </Card>
         </div>
     </>;

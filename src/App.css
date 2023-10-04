@@ -1,0 +1,77 @@
+.App {
+    text-align: center;
+}
+.Content {
+    font-size:0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+.navbar-brand {
+    font-size: 2rem !important;
+    margin-left: 2rem !important;
+}
+
+h2 {
+    font-size: .8rem;
+}
+
+.card {
+    padding: 30px;
+    margin-top: 30px!important;
+    background-color: #eaeaea !important;
+    color: #21252a;
+    min-width: 600px;
+}
+
+.btn-logout {
+    width: 100%;
+    border: 0;
+}
+
+.card p {
+    font-size: 1rem;
+}
+
+.card-login {
+    padding: 40px!important;
+}
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.table {
+    font-size: .8rem;
+}
+th {
+    font-size: .7rem;
+}
+.table thead th {
+    background-color: #060e0e;
+    color:white;
+}
+.table a {
+    color: #1a1717;
+    font-size: small;
+}
+.form {
+    font-size: 0.7rem;
+}
+
+.footer {
+    text-align: center;
+    height: 5%;
+    width: 100%;
+    background: #21252AFF;
+    color: #e5e5e5;
+    font-size: .75rem;
+    /*margin-top:-60px;*/
+    position: fixed;
+    padding-top: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

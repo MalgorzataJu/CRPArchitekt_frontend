@@ -1,5 +1,5 @@
-
 import {Card} from "react-bootstrap";
+import {ProjectsList} from "../Projects/ProjectsList";
 
 export const ProjectsView = () => (
     <>
@@ -9,7 +9,7 @@ export const ProjectsView = () => (
         >
             <Card>
                 <Card.Header><h2>Lista Projektów w realizacji</h2></Card.Header>
-                {/*<ProjectsList/>*/}
+                <ProjectsList/>
             </Card>
         </div>
     </>

@@ -17,6 +17,7 @@ export const EmployeeTable =(props: Props) => {
                         <th>Nazwisko</th>
                         <th>email</th>
                         <th>Stawka godzinowa</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
