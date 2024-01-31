@@ -49,8 +49,6 @@ export const AddHours = () => {
             });
             const result = await apiResponse.json();
             setData(result);
-            // console.log(user);
-            // console.log(result.employeeList[1].id)
             setForm({
                             projectId: result.projectList[0].id,
                             employeeId: result.employeeList[0].id,
@@ -120,6 +118,18 @@ export const AddHours = () => {
                     }
                 </select>
             </div>
+                <div className='LabelForm'>
+                    <label>
+                        Data wykonania:
+                        <input
+                            className="InputForm"
+                            type="date"
+                            name="date"
+                            value={form.date}
+                            onChange={e => updateForm('date', e.target.value)}
+                        />
+                    </label>
+                </div>
             <div className='LabelForm'>
                 Project:
                 <select
@@ -152,18 +162,6 @@ export const AddHours = () => {
                         ))
                     }
                 </select>
-            </div>
-            <div className='LabelForm'>
-                <label>
-                    Data wykonania:
-                    <input
-                        className="InputForm"
-                        type="date"
-                        name="date"
-                        value={form.date}
-                        onChange={e => updateForm('date', e.target.value)}
-                    />
-                </label>
             </div>
             <div className='LabelForm'>
                 <label>
