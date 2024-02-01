@@ -1,6 +1,8 @@
 import {ListHourResAll } from "types";
 import {Table} from "react-bootstrap";
 import {HoursTableRow} from "./HoursTableRow";
+import {useContext} from "react";
+import {AuthContextUser} from "../auth/AuthContext";
 
 interface Props {
     hours:ListHourResAll[];
@@ -8,16 +10,19 @@ interface Props {
 }
 
 export const HoursTable = (props: Props) => {
-    return (
+    const { user } = useContext(AuthContextUser);
+
+    return (<>
+        <p>Użytkownik: {user?.email.split('@')[0]}</p>
         <Table striped bordered hover>
             <thead>
             <tr>
                 <th>lp.</th>
-                <th>Projekt</th>
-                <th>Pracownik</th>
-                <th>Typ pracy</th>
-                <th>Ilość godzin</th>
                 <th>Data realizacji</th>
+                <th>Ilość godzin</th>
+                <th>Projekt</th>
+                <th>Typ pracy</th>
+                {user?.role == 'Boss' && <th>Pracownik</th>}
                 <th> </th>
             </tr>
             </thead>
@@ -34,5 +39,6 @@ export const HoursTable = (props: Props) => {
             }
             </tbody>
         </Table>
-    )
+        </>
+        )
 }

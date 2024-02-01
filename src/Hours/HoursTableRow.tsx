@@ -1,5 +1,7 @@
 import {HoursItemRes} from "types";
 import {apiUrl} from "../config/api";
+import {useContext} from "react";
+import {AuthContextUser} from "../auth/AuthContext";
 
 interface Props {
     hour: HoursItemRes;
@@ -32,29 +34,33 @@ export const HoursTableRow = (props: Props) => {
         props.onHoursChange();
     };
 
+    const { user } = useContext(AuthContextUser);
+
     return (
         <tr>
             <th>{props.number}</th>
-            <td>
-                {props.hour.projectId}
-            </td>
-            <td>
-                {props.hour.employeeId}
-            </td>
-            <td>
-                {props.hour.kindofworkId}
-            </td>
-            <td>
-                {props.hour.quantity}
-            </td>
-            <td>
-                {props.hour.date}
-            </td>
-            <td>
-                <a href="#" onClick={deleteHour}>🗑️</a>
-                {/*<a href="#" onClick={onHoursChange}>Edytuj</a>*/}
+                <td>
+                    {props.hour.date}
+                </td>
+                <td>
+                    {props.hour.quantity}
+                </td>
+                <td>
+                    {props.hour.projectId}
+                </td>
+                <td>
+                    {props.hour.kindofworkId}
+                </td>
+                 {user?.role == 'Boss' &&
+                    <td>
+                        {props.hour.employeeId}
+                    </td>
+                    }
+                <td>
+                    <a href="#" onClick={deleteHour}>🗑️</a>
+                    {/*<a href="#" onClick={onHoursChange}>Edytuj</a>*/}
 
-            </td>
+                </td>
         </tr>
     );
 };
