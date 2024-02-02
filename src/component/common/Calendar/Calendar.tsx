@@ -1,7 +1,4 @@
 import {Col, Container, Row, Form, Table} from "react-bootstrap";
-import {apiUrl} from "../../../config/api";
-import {useEffect, useState} from "react";
-import {log} from "util";
 import {ListHourCountRes} from "types";
 interface Props{
     date: {
@@ -59,11 +56,6 @@ export const Calendar = (props:Props)=> {
         })
 
 }
-
-    // useEffect(() => {
-    //     countHoursPerDay();
-    // }, []);
-
     return (<>
         <Table responsive>
             <thead>

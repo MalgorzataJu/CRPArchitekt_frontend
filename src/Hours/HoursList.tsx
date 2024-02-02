@@ -14,6 +14,8 @@ export const HoursList = () => {
     const [hoursList, setHoursList] = useState<ListHourResAll[] | null>([]);
     const [hoursForProject, setHoursForProject] = useState<SimpleRest[] >([]);
     const [hoursForKindeOfWork, setHoursForKindeOfWork] = useState<SimpleRest[] >([]);
+    const [totalMonthlyHours, setTotalMonthlyHours] = useState<number>(0);
+    const [totalMonthlyHoursForEmployee, setTttalMonthlyHoursForEmployee] = useState<SimpleRest[]>([]);
     const [countHoursForDay, setCountHoursForDay] = useState<ListHourCountRes[]>([]);
     const [pagesCount, setPagesCount] = useState(0);
     const [totalItems, setTotalItem] = useState(0);
@@ -56,9 +58,10 @@ export const HoursList = () => {
             });
             const result = await apiResponse.json();
             setCountHoursForDay(result.hoursCountPerDay);
-            setHoursForKindeOfWork(result.hoursForKindeOfWork)
-            setHoursForProject(result.hoursForProject)
-
+            setHoursForKindeOfWork(result.hoursForKindeOfWork);
+            setHoursForProject(result.hoursForProject);
+            setTotalMonthlyHours(result.totalMonthlyHours);
+            setTttalMonthlyHoursForEmployee(result.totalMonthlyHoursForEmployee);
         } finally {
         }
     };
@@ -125,7 +128,13 @@ if (hoursList === null) {
                                 </Form.Select>
                             </div>
                             <Calendar date={date} countHoursForDay={countHoursForDay}/>
-                        <Statistic date={date}  hoursForProject = { hoursForProject} hoursForKindeOfWork = {hoursForKindeOfWork} />
+                            <Statistic
+                                date={date}
+                                hoursForProject = { hoursForProject}
+                                hoursForKindeOfWork = {hoursForKindeOfWork}
+                                totalMonthlyHours = {totalMonthlyHours }
+                                totalMonthlyHoursForEmployee = {totalMonthlyHoursForEmployee}
+                            />
                     </Col>
                     <Col>
                         <HoursTable hours={hoursList} onHoursChange={refreshHoursList}/>
