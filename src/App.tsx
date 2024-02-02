@@ -15,7 +15,7 @@ function App() {
               <HeaderMenuLink/>
                 <HeaderRouter/>
           </AuthContextProvider>
-          <Footer/>
+          {/*<Footer/>*/}
     </div>
   )
 }

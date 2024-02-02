@@ -1,16 +1,19 @@
 import {useEffect, useState} from "react";
 import {AddEmployee} from "../Employees/AddEmployee/AddEmployee";
 import {HoursTable} from "./HoursTable";
-import {HoursItemRes, ListHourCountRes, ListHourResAll} from "types";
+import {HoursItemRes, ListHourCountRes, ListHourResAll, SimpleRest} from "types";
 import {apiUrl} from "../config/api";
 import {Spinner} from "../component/common/spiner/spinner";
 import {AddHours} from "./AddHours/AddHours";
 import {Pagination} from "../component/common/Pagination/Pagination";
 import {Calendar} from "../component/common/Calendar/Calendar";
-import {Form} from "react-bootstrap";
+import {Col, Container, Form, Row} from "react-bootstrap";
+import {Statistic} from "../component/common/Statistic/Statistic";
 
 export const HoursList = () => {
     const [hoursList, setHoursList] = useState<ListHourResAll[] | null>([]);
+    const [hoursForProject, setHoursForProject] = useState<SimpleRest[] >([]);
+    const [hoursForKindeOfWork, setHoursForKindeOfWork] = useState<SimpleRest[] >([]);
     const [countHoursForDay, setCountHoursForDay] = useState<ListHourCountRes[]>([]);
     const [pagesCount, setPagesCount] = useState(0);
     const [totalItems, setTotalItem] = useState(0);
@@ -52,7 +55,9 @@ export const HoursList = () => {
                 credentials: 'include',
             });
             const result = await apiResponse.json();
-            setCountHoursForDay(result);
+            setCountHoursForDay(result.hoursCountPerDay);
+            setHoursForKindeOfWork(result.hoursForKindeOfWork)
+            setHoursForProject(result.hoursForProject)
 
         } finally {
         }
@@ -89,40 +94,45 @@ if (hoursList === null) {
         return <Spinner/>;
     }
 
-    return  <>
-        <div>
-            <div className="d-flex w-50">
-                Miesiąc:
-                    <Form.Select
-                        size="sm"
-                        aria-label="Default select example"
-                        onChange={e => updateForm('month', e.target.value)}
-                    >
-                        {
-                            month.map((el, index) => {
-                                if (index == date.month)
-                                    return <option selected value={index}>{el}</option>
-                                return <option value={index}>{el}</option>})
-                        }
-                    </Form.Select>
-                ROK:
-                    <Form.Select
-                        size="sm"
-                        aria-label="Default select example"
-                        onChange={e => updateForm('year', e.target.value)}
-                    >
-                        {
-                            <option>2024</option>
-                            // month.map((el, index) => {return <option value={index}>{el}</option>})
-                        }
+    return   <Container>
+                <Row>
+                    <Col>
+                            <div className="d-flex w-50">
+                                Miesiąc:
+                                <Form.Select
+                                    size="sm"
+                                    aria-label="Default select example"
+                                    onChange={e => updateForm('month', e.target.value)}
+                                >
+                                    {
+                                        month.map((el, index) => {
+                                            if (index == date.month)
+                                                return <option selected value={index}>{el}</option>
+                                            return <option value={index}>{el}</option>})
+                                    }
+                                </Form.Select>
+                                ROK:
+                                <Form.Select
+                                    size="sm"
+                                    aria-label="Default select example"
+                                    onChange={e => updateForm('year', e.target.value)}
+                                >
+                                    {
+                                        <option>2024</option>
+                                        // month.map((el, index) => {return <option value={index}>{el}</option>})
+                                    }
 
-                    </Form.Select>
-            </div>
-            <Calendar date={date} countHoursForDay={countHoursForDay}/>
-            <HoursTable hours={hoursList} onHoursChange={refreshHoursList}/>
-            <Pagination countPages={pagesCount} totalCount = {totalItems} activeNumber={currentPage} handlePageChange={handlePageChange} />
-        </div>
-    </>
+                                </Form.Select>
+                            </div>
+                            <Calendar date={date} countHoursForDay={countHoursForDay}/>
+                        <Statistic date={date}  hoursForProject = { hoursForProject} hoursForKindeOfWork = {hoursForKindeOfWork} />
+                    </Col>
+                    <Col>
+                        <HoursTable hours={hoursList} onHoursChange={refreshHoursList}/>
+                        <Pagination countPages={pagesCount} totalCount = {totalItems} activeNumber={currentPage} handlePageChange={handlePageChange} />
+                    </Col>
+                </Row>
 
+            </Container>
 }
 

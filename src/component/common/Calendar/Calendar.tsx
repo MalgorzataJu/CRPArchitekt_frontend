@@ -27,7 +27,6 @@ export const Calendar = (props:Props)=> {
                 if ((number == 1) && (index < firstMonthDay ) || (dayNumber > daysInMonth)) return <td></td>
 
                 const dayCountHours = props.countHoursForDay.find(day => (day.date.split('.')[0] == dayNumber.toString()));
-            console.log(dayCountHours)
                 return <td key={index*number}>
                     <table>
                         <th>
