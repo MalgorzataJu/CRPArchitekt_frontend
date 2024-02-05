@@ -5,7 +5,30 @@ import {AuthContextUser} from "../auth/AuthContext";
 
 export const HeaderMenuLink = () => {
 
-    const { user, isAuthenticated, logout} = useContext(AuthContextUser);
+    const { user, isAuthenticated, login, logout} = useContext(AuthContextUser);
+    const getToken = () => {
+        const tokenDataString = localStorage.getItem("jwt");
+        if (!tokenDataString) {
+            return null;
+        }
+
+        const tokenData = JSON.parse(tokenDataString);
+        const now = new Date().getTime() * 24 * 10000;
+
+        if (now > tokenData.date) {
+            // Token wygasł, usuwamy go z localStorage
+            localStorage.removeItem("jwt");
+            return null;
+        }
+        return tokenData.token;
+    };
+
+    useEffect(() => {
+        const token = getToken();
+        if (!token) {
+            logout();
+        }
+    }, []);
 
     return (
     <div className={"Header"}>
@@ -17,7 +40,7 @@ export const HeaderMenuLink = () => {
                     <Nav className="me-auto">
                     {isAuthenticated &&(<>
                             <Nav.Link as={Link} to="/projects">Projekty</Nav.Link>
-                            <Nav.Link as={Link} to="/tasks">Zadania</Nav.Link>
+                            {/*<Nav.Link as={Link} to="/tasks">Zadania</Nav.Link>*/}
                             <Nav.Link  as={Link} to="/hours">Godziny</Nav.Link>
                             <Nav.Link as={Link} to="/add-hour"> <span style={{color:'yellow'}}>DODAJ Godziny</span></Nav.Link>
                             {user?.role == 'Boss' && (

@@ -1,6 +1,8 @@
 import React, {SyntheticEvent, useContext, useState} from "react";
 import {Button, Card,  Container, Form} from "react-bootstrap";
 import {AuthContextUser} from "../auth/AuthContext";
+import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export const Login = () => {
   const [loginPar, setLoginPer] = useState({
@@ -13,7 +15,10 @@ export const Login = () => {
   const loginSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-     await login(loginPar);
+    if (loginPar.pwd && loginPar.email) {
+        await login(loginPar);
+
+    } else toast.error("Podaj dane logowania");
   };
 
   const changeForm = (key: string, value: any) => {
@@ -55,6 +60,9 @@ export const Login = () => {
                 <Button className="ButtonForm" variant="secondary" size="lg" type="button" onClick={loginSubmit}>
                          Login
                 </Button>
+                <div className='Row'>
+                    <Link to={'/forgotten-password'} className="theme-text-light">Zapomniałeś hasła?</Link>
+                </div>
             </Form>
     </Container>
  </Card>

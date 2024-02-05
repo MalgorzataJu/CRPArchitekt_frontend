@@ -2,6 +2,7 @@ import {createContext, ReactNode, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {LogInPair, UserRole} from "types";
 import {apiUrl} from "../config/api";
+import {toast} from "react-toastify";
 
 interface UserData {
   role: UserRole;
@@ -21,11 +22,15 @@ export const AuthContextUser = createContext<AuthContextValues>({
   logout: () => {},
 });
 
-const Provider = AuthContextUser.Provider;
-
+interface LoginErrorResponse {
+  error: string;
+  isAuthenticated: false;
+}
 interface Props {
   children: ReactNode,
 }
+
+const Provider = AuthContextUser.Provider;
 
 export const AuthContextProvider = ({ children }:Props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,8 +49,8 @@ export const AuthContextProvider = ({ children }:Props) => {
   const navigate = useNavigate();
 
   const login = async (payload: LogInPair) => {
-    try {
 
+    try {
       const apiResponse = await fetch(`${apiUrl}/auth/login`, {
         method: 'POST',
         headers: {
@@ -54,20 +59,31 @@ export const AuthContextProvider = ({ children }:Props) => {
         credentials: 'include',
         body: JSON.stringify(payload),
       });
-      const result = await apiResponse.json();
 
-    if (result === false ) {
-      setUser(null);
-      setIsAuthenticated(false);
-    } else {
+      if (!apiResponse.ok) {
+        setUser(null);
+        setIsAuthenticated(false);
+        const errorResponse: LoginErrorResponse = await apiResponse.json();
+        throw new Error(errorResponse.error);
+      }
+
+      const result = await apiResponse.json();
       localStorage.setItem("jwt", JSON.stringify(result));
       setUser(result);
       setIsAuthenticated(true);
       navigate("/");
-    }
-    } finally {
-    }
 
+    } catch (error) {
+        toast.error(`Błąd: Niepoprawne dane logowania`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+    }
   };
 
   const logout = async () => {

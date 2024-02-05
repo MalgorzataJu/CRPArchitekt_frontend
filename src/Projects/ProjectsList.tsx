@@ -23,10 +23,22 @@ export const ProjectsList = () => {
                 },
                 credentials: 'include',
             });
+            if (!apiResponse.ok) {
+                throw new Error('Problem z pobieraniem projektów'); // Możesz dostosować komunikat błędu
+            }
             const result = await apiResponse.json();
             setProjects(result);
             setIsLogin(true);
-            console.log(result)
+        } catch (error) {
+            toast.error(`Błąd:`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }finally {
 
         }}

@@ -22,15 +22,18 @@ export const HeaderRouter=() => {
 
    return <div className='Content'>
               <Routes>
-                <Route
-                    path="/"
-                    element={<HomeView/>}
-                ></Route>
-                <Route
-                    path="/login"
-                    element={<Login/>}
-                ></Route>
-
+                  {!isAuthenticated &&(
+                      <>
+                          <Route
+                              path="/"
+                              element={<HomeView/>}
+                          ></Route>
+                          <Route
+                              path="/login"
+                              element={<Login/>}
+                          ></Route>
+                      </>
+                )}
          {isAuthenticated &&(
              <>
                 <Route
