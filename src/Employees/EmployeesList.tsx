@@ -4,6 +4,7 @@ import {EmployeeTable} from "./EmployeeTable";
 import {Login} from "../views/Login";
 import {apiUrl} from "../config/api";
 import {Spinner} from "../component/common/spiner/spinner";
+import {toast} from "react-toastify";
 
 
 export const EmployeesList = () => {
@@ -23,11 +24,24 @@ export const EmployeesList = () => {
                 },
                 credentials: 'include',
             });
+
+            if (!apiResponse.ok) {
+                throw new Error('Problem z pobieraniem danych');
+            }
+
             const result = await apiResponse.json();
             setList(result);
             setIsLogin(true);
-        } finally {
-
+        } catch (error) {
+            toast.error(`Błąd:`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     };
 

@@ -1,6 +1,7 @@
 import {ListKindOfHourForProject, ProjectSimpleRes} from "types";
 import {Link} from "react-router-dom";
 import {apiUrl} from "../config/api";
+import {toast} from "react-toastify";
 
 interface Props {
     project: ProjectSimpleRes;
@@ -49,9 +50,21 @@ export const ProjectTableRow = (props: Props) => {
                 <Link to={`/project/${props.project.id}`}>
                 {props.project.name}
                 </Link>
+                <div  style={{border:`1px outset `}}>
+                    <div
+                        style={{
+                            backgroundColor:(hourToDo < 0)?'#f30303':'#0d6efd',
+                            color:'white',
+                            width:`${prc % 100}%`,
+                            lineHeight:'100%',
+                            height:'1rem',
+                        } }
+                    ></div>
+                </div>
+                { (hourToDo < 0) &&(< >Przekroczono ilośc godzin: <span style={{color: 'red'}}>{hourToDo * (-1)}</span></>)}
             </td>
             <td>
-                <div> {hourToDo.toFixed(2)}/{prc.toFixed(2)}%</div>
+                <div> {hourToDo.toFixed(2)}/ {isFinite(prc)?prc.toFixed(2):""}</div>
                 <table>
                     {( props.project.stocktaking > 0)&&(
                         <tr>
@@ -85,18 +98,6 @@ export const ProjectTableRow = (props: Props) => {
                     </tr>
                 )}
                 </table>
-                <div  style={{border:`1px outset `}}>
-                    <div
-                    style={{
-                        backgroundColor:(hourToDo < 0)?'#f30303':'#0d6efd',
-                        color:'white',
-                        width:`${prc % 100}%`,
-                        lineHeight:'100%',
-                        height:'1rem',
-                } }
-                ></div>
-              </div>
-                { (hourToDo < 0) &&(<span>Przekroczono ilośc godzin</span>)}
             </td>
             <td>
                 {props.project.quantityHours}

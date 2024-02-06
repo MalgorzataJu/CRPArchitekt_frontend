@@ -54,7 +54,7 @@ export const HeaderMenuLink = () => {
                                 <NavDropdown.Item href="/add-task"> Zadanie</NavDropdown.Item>
                                 <NavDropdown.Item href="/kindofwork">Rodzaje Godzin</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>
+                                {/*<NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>*/}
                             </NavDropdown>
                         </>
                         )}

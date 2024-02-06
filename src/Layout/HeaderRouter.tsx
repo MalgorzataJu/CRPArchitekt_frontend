@@ -22,7 +22,6 @@ export const HeaderRouter=() => {
 
    return <div className='Content'>
               <Routes>
-                  {!isAuthenticated &&(
                       <>
                           <Route
                               path="/"
@@ -33,7 +32,6 @@ export const HeaderRouter=() => {
                               element={<Login/>}
                           ></Route>
                       </>
-                )}
          {isAuthenticated &&(
              <>
                 <Route

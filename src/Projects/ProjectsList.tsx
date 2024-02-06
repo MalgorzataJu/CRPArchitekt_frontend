@@ -23,8 +23,9 @@ export const ProjectsList = () => {
                 },
                 credentials: 'include',
             });
+
             if (!apiResponse.ok) {
-                throw new Error('Problem z pobieraniem projektów'); // Możesz dostosować komunikat błędu
+                throw new Error('Problem z pobieraniem projektów');
             }
             const result = await apiResponse.json();
             setProjects(result);

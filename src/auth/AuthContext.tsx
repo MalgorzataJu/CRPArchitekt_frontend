@@ -89,12 +89,11 @@ export const AuthContextProvider = ({ children }:Props) => {
   const logout = async () => {
 
     localStorage.removeItem("jwt");
-
+    setUser(null);
+    setIsAuthenticated(false)
     await fetch(`${apiUrl}/auth/logout`, {
           credentials: "include",
         });
-    setUser(null);
-    setIsAuthenticated(false)
     navigate("/Login");
   };
 

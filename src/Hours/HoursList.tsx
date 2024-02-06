@@ -9,6 +9,7 @@ import {Pagination} from "../component/common/Pagination/Pagination";
 import {Calendar} from "../component/common/Calendar/Calendar";
 import {Col, Container, Form, Row} from "react-bootstrap";
 import {Statistic} from "../component/common/Statistic/Statistic";
+import {toast} from "react-toastify";
 
 export const HoursList = () => {
     const [hoursList, setHoursList] = useState<ListHourResAll[] | null>([]);
@@ -56,15 +57,28 @@ export const HoursList = () => {
                 },
                 credentials: 'include',
             });
+
+            if (!apiResponse.ok) {
+                throw new Error('Problem z pobieraniem danych');
+            }
             const result = await apiResponse.json();
             setCountHoursForDay(result.hoursCountPerDay);
             setHoursForKindeOfWork(result.hoursForKindeOfWork);
             setHoursForProject(result.hoursForProject);
             setTotalMonthlyHours(result.totalMonthlyHours);
             setTttalMonthlyHoursForEmployee(result.totalMonthlyHoursForEmployee);
-        } finally {
+        } catch (error) {
+            toast.error(`Błąd:`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
-    };
+    }
 
     const refreshHoursList = async () => {
     try {
@@ -77,14 +91,27 @@ export const HoursList = () => {
             },
             credentials: 'include',
         });
+
+        if (!apiResponse.ok) {
+            throw new Error('Problem z pobieraniem danych');
+        }
         const result = await apiResponse.json();
 
         setHoursList(result.items);
         setPagesCount(result.pagesCount);
         setTotalItem(result.totalItems);
 
-        } finally {
-        }
+        } catch (error) {
+        toast.error(`Błąd:`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
     };
 
     useEffect(() => {
