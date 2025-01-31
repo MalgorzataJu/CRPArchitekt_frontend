@@ -80,6 +80,7 @@ export const AddHours = () => {
                 body: JSON.stringify(form),
             });
             const result = await apiResponse.json();
+            toast.success("Twoja ciężka praca została zapisana!");
             setResultInfo(result.isSuccess);
         } finally {
             setLoading(false);

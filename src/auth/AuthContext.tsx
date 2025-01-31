@@ -64,6 +64,7 @@ export const AuthContextProvider = ({ children }:Props) => {
         setUser(null);
         setIsAuthenticated(false);
         const errorResponse: LoginErrorResponse = await apiResponse.json();
+        toast("Niepoprawne dane ${errorResponse.error}")
         throw new Error(errorResponse.error);
       }
 
@@ -94,6 +95,7 @@ export const AuthContextProvider = ({ children }:Props) => {
     await fetch(`${apiUrl}/auth/logout`, {
           credentials: "include",
         });
+    toast.info("Wylogowano")
     navigate("/Login");
   };
 

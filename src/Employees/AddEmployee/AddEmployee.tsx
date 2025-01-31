@@ -5,6 +5,7 @@ import {apiUrl} from "../../config/api";
 import {Spinner} from "../../component/common/spiner/spinner";
 import '../../Layout/style.css';
 import {UserRole} from "types";
+import {toast} from "react-toastify";
 
 export const AddEmployee = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -51,8 +52,7 @@ export const AddEmployee = () => {
                 message: result,
                 isOk: true,
               });
-            console.log(result)
-            console.log( form)
+            toast.success("Pracownik został dodany");
 
         } finally {
             setLoading(false);

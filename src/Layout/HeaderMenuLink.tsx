@@ -6,29 +6,6 @@ import {AuthContextUser} from "../auth/AuthContext";
 export const HeaderMenuLink = () => {
 
     const { user, isAuthenticated, login, logout} = useContext(AuthContextUser);
-    const getToken = () => {
-        const tokenDataString = localStorage.getItem("jwt");
-        if (!tokenDataString) {
-            return null;
-        }
-
-        const tokenData = JSON.parse(tokenDataString);
-        const now = new Date().getTime() * 24 * 10000;
-
-        if (now > tokenData.date) {
-            // Token wygasł, usuwamy go z localStorage
-            localStorage.removeItem("jwt");
-            return null;
-        }
-        return tokenData.token;
-    };
-
-    useEffect(() => {
-        const token = getToken();
-        if (!token) {
-            logout();
-        }
-    }, []);
 
     return (
     <div className={"Header"}>

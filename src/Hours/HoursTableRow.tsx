@@ -2,6 +2,7 @@ import {HoursItemRes} from "types";
 import {apiUrl} from "../config/api";
 import {useContext} from "react";
 import {AuthContextUser} from "../auth/AuthContext";
+import {toast} from "react-toastify";
 
 interface Props {
     hour: HoursItemRes;
@@ -27,7 +28,7 @@ export const HoursTableRow = (props: Props) => {
         });
 
         if ([400, 500].includes(res.status)) {
-            alert(`Error occurred: ${res.statusText}`);
+            toast.error(`Error occurred: ${res.statusText}`);
             return;
         }
 

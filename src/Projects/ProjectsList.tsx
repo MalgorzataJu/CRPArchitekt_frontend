@@ -14,7 +14,6 @@ export const ProjectsList = () => {
     const refreshProject = async () => {
 
         try {
-
             setProjects(null);
             const apiResponse = await fetch(`${apiUrl}/project`, {
                 method: 'GET',
@@ -27,20 +26,15 @@ export const ProjectsList = () => {
             if (!apiResponse.ok) {
                 throw new Error('Problem z pobieraniem projektów');
             }
+
             const result = await apiResponse.json();
             setProjects(result);
             setIsLogin(true);
-        } catch (error) {
-            toast.error(`Błąd:`, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        }finally {
+
+        }catch (error) {
+            toast.error(`${error}`);
+        }
+        finally {
 
         }}
 

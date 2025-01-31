@@ -61,7 +61,7 @@ export const AddKindOfWork = (props: Props) => {
                     body: JSON.stringify(form),
                 });
                 const data: ProjectItemEntity = await res.json();
-                toast.success("Udało się");
+                toast.success("Rodzaj godzin został dodany");
                 setResultInfo({status: true, message: `${data.name} has been created.`});
             }
 

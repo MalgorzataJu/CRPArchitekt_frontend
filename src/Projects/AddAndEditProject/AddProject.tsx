@@ -66,7 +66,7 @@ export const AddProject = () => {
                         body: JSON.stringify(form),
                     });
                     const data: ProjectItemEntity = await res.json();
-                    toast.success("Udało się");
+                    toast.success("Projekt został dodany");
                     setResultInfo({status: true, message: `${data.name} has been created.`});
                 }
 

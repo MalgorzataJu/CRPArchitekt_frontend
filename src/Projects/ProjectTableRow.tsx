@@ -32,14 +32,14 @@ export const ProjectTableRow = (props: Props) => {
 
         if ([400, 500].includes(res.status)) {
             const error = await res.json();
-            alert(`Error occurred: ${error.message}`);
+            toast(`Error occurred: ${error.message}`);
             return;
         }
 
         props.onProjectsChange();
     };
     const calculate = (kindofhour: string, sumAll:number) => {
-        const sumDone = props.hours.find(h=> h.kindofwork == kindofhour)?.sumKindOfWork??0;
+        const sumDone = props.hours.find(h=> h.kindofwork === kindofhour)?.sumKindOfWork??0;
 
         return <>{sumAll - sumDone}/{(sumDone/sumAll*100).toFixed(2)}%</>
     }
@@ -66,6 +66,7 @@ export const ProjectTableRow = (props: Props) => {
             <td>
                 <div> {hourToDo.toFixed(2)}/ {isFinite(prc)?prc.toFixed(2):""}</div>
                 <table>
+                    <tbody>
                     {( props.project.stocktaking > 0)&&(
                         <tr>
                             <td>Inwentaryzacja</td>
@@ -97,11 +98,13 @@ export const ProjectTableRow = (props: Props) => {
                         <td>{calculate("NADZÓR",props.project.control )}</td>
                     </tr>
                 )}
+                        </tbody>
                 </table>
             </td>
             <td>
                 {props.project.quantityHours}
                 <table>
+                    <tbody>
                     {( props.project.stocktaking > 0)&&(
                         <tr>
                             <td>Inwentaryzacja</td>
@@ -133,20 +136,21 @@ export const ProjectTableRow = (props: Props) => {
                         <td>{props.project.control}</td>
                     </tr>
                     )}
+                    </tbody>
                 </table>
             </td>
             <td>
                 <table>
-                    <>{props.hours.reduce((a,b) => (a + b.sumKindOfWork),0).toFixed(2)}</>
-                    <tr>
+                    <tbody>
+                    <tr><td>{props.hours.reduce((a,b) => (a + b.sumKindOfWork),0).toFixed(2)}</td></tr>
                         {
                             props.hours.map((el, index) =>(
                                 <tr key ={index}>
-                                    {el.kindofwork} {el.sumKindOfWork.toFixed(2)}
+                                    <td>{el.kindofwork} {el.sumKindOfWork.toFixed(2)}</td>
                                 </tr>
                             ))
                         }
-                    </tr>
+                    </tbody>
                 </table>
             </td>
             <td>
