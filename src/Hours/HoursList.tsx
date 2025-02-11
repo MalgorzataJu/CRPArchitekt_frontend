@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AddEmployee} from "../Employees/AddEmployee/AddEmployee";
 import {HoursTable} from "./HoursTable";
 import {HoursItemRes, ListHourCountRes, ListHourResAll, SimpleRest} from "types";
@@ -19,6 +19,8 @@ export const HoursList = () => {
     const [totalMonthlyHoursForEmployee, setTttalMonthlyHoursForEmployee] = useState<SimpleRest[]>([]);
     const [countHoursForDay, setCountHoursForDay] = useState<ListHourCountRes[]>([]);
     const [pagesCount, setPagesCount] = useState(0);
+    const [years, setYears] = useState([]);
+    const getYearsCalled = useRef(false);
     const [totalItems, setTotalItem] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [date, setDate] = useState({
@@ -30,7 +32,7 @@ export const HoursList = () => {
 
     const params = new URLSearchParams({
         m:(+date.month + 1).toString(),
-        y:date.year.toString()
+        y:(date.year).toString()
     });
 
     const searchProps ="?" + params.toString();
@@ -42,9 +44,47 @@ export const HoursList = () => {
             [key]:  (key === 'quantity')?Number(value): value,
         }));
     };
+
     const handlePageChange = (pageNumber:number) => {
         setCurrentPage(pageNumber);
     };
+
+    const getYears = async() => {
+        if (getYearsCalled.current) return;
+        getYearsCalled.current = true;
+
+        try {
+            setYears([]);
+            const apiResponse = await fetch(`${apiUrl}/hour/getyears`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (!apiResponse.ok) {
+                throw new Error('Problem z pobieraniem danych');
+            }
+            const result = await apiResponse.json();
+            setYears(result);
+
+        } catch (error) {
+            toast.error(`Błąd:`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        }
+
+    useEffect(() => {
+        getYears();
+    }, []);
 
     const countHoursPerDay = async() => {
         try {
@@ -148,8 +188,10 @@ if (hoursList === null) {
                                     onChange={e => updateForm('year', e.target.value)}
                                 >
                                     {
-                                        <option>2024</option>
-                                        // month.map((el, index) => {return <option value={index}>{el}</option>})
+                                      years.map((el, index) => {
+                                          if (el == date.year)
+                                              return <option selected value={el}>{el}</option>
+                                          return <option value={el}>{el}</option>})
                                     }
 
                                 </Form.Select>
