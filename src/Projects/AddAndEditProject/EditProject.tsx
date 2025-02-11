@@ -5,7 +5,6 @@ import {useParams} from "react-router-dom";
 import {ProjectsView} from "../../views/ProjectsView";
 import {apiUrl} from "../../config/api";
 import {Spinner} from "../../component/common/spiner/spinner";
-import { toast } from 'react-toastify';
 import '../../Layout/style.css';
 
 export const EditProject = () => {
@@ -27,6 +26,7 @@ export const EditProject = () => {
         excess: 0,
         executive : 0,
         control : 0,
+        isActive: false,
     });
 
     useEffect(() => {
@@ -53,7 +53,8 @@ export const EditProject = () => {
                 setOf: project.setOf,
                 excess: project.excess,
                 executive : project.executive,
-                control : project.control
+                control : project.control,
+                isActive: project.isActive,
             });
         })();
     }, []);
@@ -146,18 +147,6 @@ export const EditProject = () => {
                     />
                 </label>
             </div>
-            {/*<div className='LabelForm'>*/}
-            {/*    <label>*/}
-            {/*        Planowane godziny:*/}
-            {/*        <input*/}
-            {/*            className="InputForm"*/}
-            {/*            type="number"*/}
-            {/*            name="quantityHours"*/}
-            {/*            value={form.quantityHours}*/}
-            {/*            onChange={e => updateForm('quantityHours', e.target.value)}*/}
-            {/*        /><br/>*/}
-            {/*    </label>*/}
-            {/*</div>*/}
                 <div className='LabelForm'>
                     <label>
                         Inwentaryzacja:
@@ -242,6 +231,21 @@ export const EditProject = () => {
                     /><br/>
                 </label>
             </div>
+
+                <div className='LabelForm'>
+                    <label>
+                        Status projektu:
+                        <select
+                            name="isActive"
+                            value={form.isActive? 'Active' : 'Archived'}
+                            onChange={e => updateForm('isActive', e.target.value =='Active')}
+                            className="InputForm"
+                        >
+                            <option value="Active">Aktywny</option>
+                            <option value="Archived">Archiwalny</option>
+                        </select>
+                    </label>
+                </div>
             <button className="ButtonForm" type="submit">Zapisz zmiany</button>
         </form>
     </Card.Body>

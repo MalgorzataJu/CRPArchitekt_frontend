@@ -20,6 +20,7 @@ export const AddProject = () => {
         excess: 0,
         executive : 0,
         control : 0,
+        isActive: false,
     });
     const [loading, setLoading] = useState<boolean>(false);
     const [resultInfo, setResultInfo] = useState< {status:boolean, message:string}>({

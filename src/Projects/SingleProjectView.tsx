@@ -62,7 +62,7 @@ export const SingleProjectView = () => {
                     </tr>
                     <tr>
                         <th>Zakończony:</th>
-                        <td>Nie</td>
+                        <td>{project.isActive}</td>
                     </tr>
                     </tbody>
                 </Table>

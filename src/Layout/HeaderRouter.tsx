@@ -16,6 +16,7 @@ import {EditProject} from "../Projects/AddAndEditProject/EditProject";
 import {SingleProjectView} from "../Projects/SingleProjectView";
 import {AuthContextUser} from "../auth/AuthContext";
 import {KindOfWorkView} from "../views/KindOfWorkView";
+import {ArchiveProjectsView} from "../views/ArchiveProjectsView";
 
 export const HeaderRouter=() => {
     const {isAuthenticated} = useContext(AuthContextUser);
@@ -64,7 +65,13 @@ export const HeaderRouter=() => {
                        }
                 ></Route>
 
-                <Route path="/projects"
+                <Route path="/archiveprojects"
+                       element={
+                               <ArchiveProjectsView/>
+                       }
+                ></Route>
+
+                 <Route path="/projects"
                        element={
                                <ProjectsView/>
                        }

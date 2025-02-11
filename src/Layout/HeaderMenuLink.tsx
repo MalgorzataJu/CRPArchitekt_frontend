@@ -33,6 +33,7 @@ export const HeaderMenuLink = () => {
                                 <NavDropdown.Divider />
                                 {/*<NavDropdown.Item href="/add-hour">Godziny Pracy</NavDropdown.Item>*/}
                             </NavDropdown>
+                            <Nav.Link as={Link} to="/archiveprojects">Projekty Archiwalne</Nav.Link>
                         </>
                         )}
                     </Nav>
