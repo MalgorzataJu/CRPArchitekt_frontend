@@ -34,6 +34,12 @@
     font-size: 1rem;
     font-family:Calibri, sans-serif;
 }
+
+.HourInput {
+    display: grid;
+    alignItems: center;
+}
+
 .DivDataForm {
     line-height: 100%;
     position: absolute;
@@ -55,7 +61,7 @@
 
 .ButtonForm .unactive {
     background-color: #ffffff;
-    color: gray;
+    color: #b5d2f8;
 }
 .card {
   height: fit-content;

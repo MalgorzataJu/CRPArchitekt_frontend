@@ -49,6 +49,7 @@ export const AuthContextProvider = ({ children }:Props) => {
   const navigate = useNavigate();
 
   const login = async (payload: LogInPair) => {
+    console.log("API URL being used:", apiUrl);
 
     try {
       const apiResponse = await fetch(`${apiUrl}/auth/login`, {

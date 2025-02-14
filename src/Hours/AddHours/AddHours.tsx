@@ -1,5 +1,5 @@
 import React, {FormEvent, useContext, useEffect, useState} from 'react';
-import {CreateHourRecord, ListAllToAddHoursRes} from 'types';
+import {CreateHourRecord, CreateHoursNumber, ListAllToAddHoursRes} from 'types';
 import {Card} from "react-bootstrap";
 import {HoursView} from "../../views/HoursView";
 import {apiUrl} from "../../config/api";
@@ -18,11 +18,16 @@ export const AddHours = () => {
         projectList: [],
     });
 
+    const [hourForForm, setHourForForm] = useState<CreateHoursNumber>({
+        minutes: 0,
+        hours: 1,
+    });
+
     const [form, setForm] = useState<CreateHourRecord>({
         projectId: '',
         employeeId: '',
         kindofworkId: '',
-        quantity: 1,
+        quantity:0,
         date: '',
     });
 
@@ -37,6 +42,20 @@ export const AddHours = () => {
         }));
     };
 
+    const updateQuantityFromTime = (key: string, value: any) => {
+
+        setHourForForm(hourForForm => {
+            const updatedHourForForm = {
+                ...hourForForm,
+                [key]: Number(value),
+            };
+
+            const totalHours = (updatedHourForForm.hours + updatedHourForForm.minutes / 60).toFixed(2);
+            updateForm('quantity', totalHours);
+            return updatedHourForForm;
+        });
+    };
+
     const refreshHours = async () => {
 
         try {
@@ -47,7 +66,9 @@ export const AddHours = () => {
                 },
                 credentials: 'include',
             });
+
             const result = await apiResponse.json();
+
             setData(result);
             setForm({
                             projectId: result.projectList[0].id,
@@ -69,6 +90,7 @@ export const AddHours = () => {
     const sendForm = async (e: FormEvent) => {
         e.preventDefault();
 
+        console.log(form);
         setLoading(true);
         try {
             const apiResponse = await fetch(`${apiUrl}/hour`, {
@@ -165,17 +187,39 @@ export const AddHours = () => {
                 </select>
             </div>
             <div className='LabelForm'>
-                <label>
+                <div>
                     Ilość godzin:
-                    <input
-                        className="InputForm"
-                        type="number"
-                        name="quantity"
-                        min="0.1" step=".1"
-                        value={form.quantity}
-                        onChange={e => updateForm('quantity', e.target.value)}
-                    /><br/>
+                </div>
+                <div className='HourInput' >
+                <label>
+                    <div >
+                            <input
+                                className="InputForm"
+                                type="number"
+                                name="hours"
+                                min="0"
+                                step="1"
+                                title="Wprowadź liczbę godzin"
+                                value={hourForForm.hours}
+                                onChange={e => updateQuantityFromTime('hours', e.target.value)}
+                                style={{ width: '20%', marginRight: '40%'}}
+                            />
+                    </div>
+                        <div>
+                        <select
+                            className="InputForm"
+                            name="minutes"
+                            onChange={e => updateQuantityFromTime("minutes", Number(e.target.value))}
+                            style={{ width: '30%'}}
+                        >
+                            <option value={0}>0 minut</option>
+                            <option value={15}>15 minut</option>
+                            <option value={30}>30 minut</option>
+                            <option value={45}>45 minut</option>
+                        </select>
+                        </div>
                 </label>
+                </div>
             </div>
             <button className="ButtonForm" type="submit">Dodaj</button>
         </form>
