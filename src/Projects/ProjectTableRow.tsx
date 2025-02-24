@@ -102,7 +102,7 @@ export const ProjectTableRow = (props: Props) => {
                 </table>
             </td>
             <td>
-                {props.project.quantityHours}
+                <div className="fw-bold">{props.project.quantityHours}</div>
                 <table>
                     <tbody>
                     {( props.project.stocktaking > 0)&&(
@@ -142,7 +142,9 @@ export const ProjectTableRow = (props: Props) => {
             <td>
                 <table>
                     <tbody>
-                    <tr><td>{props.hours.reduce((a,b) => (a + b.sumKindOfWork),0).toFixed(2)}</td></tr>
+                    <tr><td>
+                        <div className="fw-bold">{props.hours.reduce((a,b) => (a + b.sumKindOfWork),0).toFixed(2)}</div>
+                        </td></tr>
                         {
                             props.hours.map((el, index) =>(
                                 <tr key ={index}>
@@ -155,8 +157,7 @@ export const ProjectTableRow = (props: Props) => {
             </td>
             <td>
                 {props.project.startDate}
-            </td>
-            <td>
+               <div>-</div>
                 {props.project.endDate}
             </td>
             <td>
